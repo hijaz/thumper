@@ -1,0 +1,15 @@
+# Test requirements.txt with various formats
+flask==2.3.2
+requests==2.31.0
+numpy==1.24.3; python_version >= "3.8"
+# This is a comment
+pandas==2.0.1
+
+# Package with extras
+celery==5.2.7  # inline comment
+
+# Unpinned (should be ignored)
+pip-tools
+
+--extra-index-url https://example.com/simple
+-r other-requirements.txt

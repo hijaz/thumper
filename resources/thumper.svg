@@ -1,0 +1,36 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="100%" height="100%">
+  <!-- Background for Extension Icon -->
+  <rect width="512" height="512" rx="112" fill="#1e1e24" />
+
+  <!-- Concentric Vibration Waves (Base) -->
+  <path d="M 196 420 A 60 25 0 0 0 316 420" fill="none" stroke="#f39c12" stroke-width="6" stroke-linecap="round" opacity="0.4" />
+  <path d="M 166 435 A 90 35 0 0 0 346 435" fill="none" stroke="#f39c12" stroke-width="8" stroke-linecap="round" opacity="0.6" />
+  <path d="M 126 452 A 130 45 0 0 0 386 452" fill="none" stroke="#f39c12" stroke-width="10" stroke-linecap="round" />
+
+  <!-- The Thumper Device -->
+  <g transform="translate(0, -10)">
+    <!-- Main Spike / Shaft -->
+    <path d="M 246 160 L 266 160 L 262 430 L 256 445 L 250 430 Z" fill="#e0e0e0" />
+    
+    <!-- Tapered Tip Shadow/Detail -->
+    <path d="M 250 430 L 256 445 L 256 160 L 250 160 Z" fill="#b5b5b5" opacity="0.7" />
+
+    <!-- Mechanical Collars / Rings -->
+    <rect x="240" y="220" width="32" height="12" rx="4" fill="#f39c12" />
+    <rect x="242" y="320" width="28" height="10" rx="3" fill="#b5b5b5" />
+
+    <!-- Actuator / Pulse Mechanism Head -->
+    <rect x="236" y="110" width="40" height="50" rx="6" fill="#ffffff" />
+    <!-- Inner mechanical core detail -->
+    <rect x="246" y="120" width="20" height="30" rx="2" fill="#1e1e24" />
+    
+    <!-- Driving Piston / Top Cap -->
+    <path d="M 230 100 L 282 100 L 276 110 L 236 110 Z" fill="#f39c12" />
+    <rect x="251" y="85" width="10" height="15" fill="#ffffff" />
+
+    <!-- Side Thumping Arm / Crank Mechanism -->
+    <path d="M 276 125 L 300 125 L 300 145 L 276 145 Z" fill="#b5b5b5" />
+    <circle cx="300" cy="135" r="12" fill="#f39c12" />
+    <circle cx="300" cy="135" r="5" fill="#ffffff" />
+  </g>
+</svg>

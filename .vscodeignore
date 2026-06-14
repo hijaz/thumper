@@ -1,0 +1,10 @@
+.vscode/**
+.gitignore
+CLAUDE.md
+node_modules/**
+*.vsix
+.DS_Store
+resources/thumper.png
+resources/thumper.svg
+test/**
+test-pypi/**

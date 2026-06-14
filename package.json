@@ -1,0 +1,180 @@
+{
+  "name": "thumper",
+  "displayName": "Thumper",
+  "description": "Brings the worm to the surface. Local supply-chain watchdog: OSV malware checks, integrity baselines for your configs AND installed extensions, npm registry/.npmrc tamper detection, dependency cooldown, and install-script auditing. No account, no telemetry.",
+  "version": "1.2.0",
+  "publisher": "hijaz",
+  "engines": {
+    "vscode": "^1.85.0"
+  },
+  "scripts": {
+    "test": "node --test test/*.test.js"
+  },
+  "categories": [
+    "Other"
+  ],
+  "main": "./extension.js",
+  "activationEvents": [
+    "onStartupFinished",
+    "onView:thumper.findings"
+  ],
+  "contributes": {
+    "commands": [
+      {
+        "command": "thumper.scanNow",
+        "title": "Thumper: Scan workspace now",
+        "icon": "$(play)"
+      },
+      {
+        "command": "thumper.checkOsv",
+        "title": "Thumper: Check dependencies against OSV (malware database)"
+      },
+      {
+        "command": "thumper.hardenWorkspace",
+        "title": "Thumper: Harden this workspace (.npmrc)"
+      },
+      {
+        "command": "thumper.checkDependencyAges",
+        "title": "Thumper: Check dependency ages (cooldown)"
+      },
+      {
+        "command": "thumper.acceptBaselines",
+        "title": "Thumper: Accept current configs as baseline"
+      },
+      {
+        "command": "thumper.refreshFindings",
+        "title": "Thumper: Refresh findings",
+        "icon": "$(refresh)"
+      },
+      {
+        "command": "thumper.showOutput",
+        "title": "Thumper: Show output"
+      },
+      {
+        "command": "thumper.generateLockfile",
+        "title": "Thumper: Generate lockfile"
+      }
+    ],
+    "viewsContainers": {
+      "activitybar": [
+        {
+          "id": "thumper",
+          "title": "Thumper",
+          "icon": "resources/icon.svg"
+        }
+      ]
+    },
+    "views": {
+      "thumper": [
+        {
+          "id": "thumper.findings",
+          "name": "Findings"
+        }
+      ]
+    },
+    "menus": {
+      "view/title": [
+        {
+          "command": "thumper.scanNow",
+          "when": "view == thumper.findings",
+          "group": "navigation"
+        },
+        {
+          "command": "thumper.refreshFindings",
+          "when": "view == thumper.findings",
+          "group": "navigation"
+        }
+      ]
+    },
+    "configuration": {
+      "title": "Thumper",
+      "properties": {
+        "thumper.suspectScopes": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "default": [],
+          "description": "Extra npm scopes to flag (the bundled IOC baseline is always included)."
+        },
+        "thumper.suspectPackages": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "default": [],
+          "description": "Extra package names to flag (bundled baseline always included)."
+        },
+        "thumper.scanOnStartup": {
+          "type": "boolean",
+          "default": true,
+          "description": "Run the persistence + integrity scan when a workspace opens."
+        },
+        "thumper.watchTerminal": {
+          "type": "boolean",
+          "default": true,
+          "description": "Warn on risky npm/pnpm/yarn installs in the terminal (best-effort, after the command starts)."
+        },
+        "thumper.checkHardening": {
+          "type": "boolean",
+          "default": true,
+          "description": "Check .npmrc floor + lockfile presence on open."
+        },
+        "thumper.configIntegrity": {
+          "type": "boolean",
+          "default": true,
+          "description": "Baseline protected config files (Claude settings, tasks.json, .npmrc, package.json, VS Code settings) and alert on ANY change, suspicious-looking or not."
+        },
+        "thumper.extensionIntegrity": {
+          "type": "boolean",
+          "default": true,
+          "description": "Baseline installed VS Code extensions (version + hash of their entry files) and alert on tampering: changed code without a version bump is treated as HIGH; normal version updates are noted and re-baselined."
+        },
+        "thumper.extensionRecheckMinutes": {
+          "type": "number",
+          "default": 10,
+          "description": "How often (minutes) to re-check installed extensions while the editor is open, since marketplace auto-updates can land mid-session. 0 disables periodic re-checks."
+        },
+        "thumper.minDependencyAgeDays": {
+          "type": "number",
+          "default": 7,
+          "description": "Cooldown: flag lockfile-resolved versions published more recently than this many days ago. 0 disables."
+        },
+        "thumper.maxAgeChecks": {
+          "type": "number",
+          "default": 40,
+          "description": "Max packages to query per age check (registry packuments are large; results are cached 24h)."
+        },
+        "thumper.ageCheckOnStartup": {
+          "type": "boolean",
+          "default": false,
+          "description": "Also run the dependency age check automatically on open (network calls to registry.npmjs.org)."
+        },
+        "thumper.osvCheck": {
+          "type": "boolean",
+          "default": true,
+          "description": "Batch-check lockfile dependencies against the OSV malicious-package database on open (api.osv.dev, no key, cached 24h)."
+        }
+      }
+    }
+  },
+  "keywords": [
+    "security",
+    "supply chain",
+    "npm",
+    "integrity",
+    "malware",
+    "shai-hulud",
+    "claude code",
+    "config"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/hijaz/thumper"
+  },
+  "bugs": {
+    "url": "https://github.com/hijaz/thumper/issues"
+  },
+  "homepage": "https://github.com/hijaz/thumper#readme",
+  "license": "MIT"
+}
