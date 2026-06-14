@@ -12,13 +12,6 @@ exactly those places and forces anything that moves into the open.
 Local, zero dependencies, no account, no telemetry. Read the source before you
 trust it.
 
-## UI
-
-Thumper shows findings in a **sidebar tree view** (shield icon in the activity
-bar), grouped by severity click any finding to open the file. A **status bar
-item** shows a live summary: green when clean, amber/yellow for warnings, red
-for high-severity hits. Click it to re-scan.
-
 ## What it watches
 
 **Known-malicious packages, via OSV.dev.** Resolved versions from your lockfiles
