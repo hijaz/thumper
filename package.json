@@ -2,7 +2,7 @@
   "name": "thumper",
   "displayName": "Thumper",
   "description": "Brings the worm to the surface. Local supply-chain watchdog: OSV malware checks, integrity baselines for your configs AND installed extensions, npm registry/.npmrc tamper detection, dependency cooldown, and install-script auditing. No account, no telemetry.",
-  "version": "1.2.0",
+  "version": "1.2.1",
   "publisher": "hijaz",
   "engines": {
     "vscode": "^1.85.0"

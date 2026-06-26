@@ -298,6 +298,27 @@ function reportIntegrity(diff, interactive) {
 // We deliberately do NOT pattern-scan extension code — minified legit bundles
 // match everything — integrity diff is the honest signal here.
 
+// Built-in extensions ship with VS Code itself and get updated when VS Code
+// updates — their files change but version numbers often stay the same because
+// they're tied to the VS Code build, not the marketplace.  We skip them here
+// so we don't flag normal editor updates as tampering.
+function isBuiltinExtension(ext) {
+  if (!ext.id) return false;
+  // Fast path: known built-in publisher prefixes shipped with VS Code.
+  const id = ext.id.toLowerCase();
+  if (id.startsWith('vscode.') || id.startsWith('ms-vscode.')) return true;
+  // Path-based: built-in extensions live under <appRoot>/extensions/,
+  // user-installed extensions live under ~/.vscode*/extensions/.
+  try {
+    const appRoot = vscode.env.appRoot;
+    if (appRoot && ext.extensionPath) {
+      const builtinDir = path.join(appRoot, 'extensions') + path.sep;
+      if (ext.extensionPath.startsWith(builtinDir)) return true;
+    }
+  } catch (_) { /* env.appRoot unavailable in some contexts */ }
+  return false;
+}
+
 function extensionEntryFiles(ext) {
   const files = [];
   const root = ext.extensionPath;
@@ -317,7 +338,7 @@ function snapshotExtensions() {
   const snap = {};
   for (const ext of vscode.extensions.all || []) {
     try {
-      if (!ext.id || ext.id.toLowerCase().startsWith('vscode.')) continue; // skip built-ins
+      if (isBuiltinExtension(ext)) continue; // skip built-ins
       if (ctx && ctx.extension && ext.id === ctx.extension.id) continue; // skip self during dev
       const pj = ext.packageJSON || {};
       const h = crypto.createHash('sha256');

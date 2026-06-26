@@ -1,5 +1,8 @@
 # Changelog
 
+## 1.2.1
+- **Fix false tamper alerts for built-in extensions.** VS Code ships built-in extensions under several publisher prefixes (`ms-vscode.*`, `TypeScriptTeam.*`, etc.), not just `vscode.*`. A VS Code update refreshes these extensions' files without bumping their version, which looked identical to Nx-Console-style tampering. Built-in detection now uses a path-based check against the VS Code app root in addition to prefix matching, so editor updates no longer trigger false HIGH modals.
+
 ## 1.2.0
 - **Sidebar tree view** — activity bar icon, findings grouped by severity. Click any finding to open the file. Header buttons for scan and refresh.
 - **Status bar item** — live summary of findings: green when clean, red when HIGH findings exist, amber for warnings. Click to re-scan.
